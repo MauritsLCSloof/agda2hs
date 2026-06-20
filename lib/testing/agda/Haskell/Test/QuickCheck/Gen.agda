@@ -53,9 +53,14 @@ resize n (MkGen g) = MkGen (λ r _ → g r n)
 scale : (∃ Int IsNonNegativeInt → ∃ Int IsNonNegativeInt) → Gen a → Gen a
 scale f g = sized (λ n → resize (f n) g)
 
+@0 _<=_<=_ : ⦃ Ord a ⦄ → a → a → a → Type
+lo <= v <= hi = IsTrue (lo <= v) × IsTrue (v <= hi)
+
 postulate
   choose : ⦃ Random a ⦄ → a × a → Gen a
   chooseAny : ⦃ Random a ⦄ → Gen a
   chooseInt : (range : Int × Int) → Gen Int 
+  chooseInt' : (range : Int × Int) → @0 ⦃ IsTrue (fst range <= snd range) ⦄ → Gen (∃ Int (fst range <=_<= snd range))
   chooseEnum : ⦃ Enum a ⦄ → (range : a × a) → Gen a 
   chooseInteger : (range : Integer × Integer) → Gen Integer
+  chooseInteger' : (range : Integer × Integer) → @0 ⦃ IsTrue (fst range <= snd range) ⦄ → Gen (∃ Integer (fst range <=_<= snd range))

@@ -1,0 +1,10 @@
+prelude:
+  implicit: true
+
+rewrites:
+  - from: "Haskell.Test.QuickCheck.Gen.chooseInt'"
+    to: "chooseInt"
+    importing: "Test.QuickCheck.Gen"
+  - from: "Haskell.Test.QuickCheck.Gen.chooseInteger'"
+    to: "chooseInteger"
+    importing: "Test.QuickCheck.Gen"
