@@ -64,3 +64,22 @@ postulate
   chooseEnum : ⦃ Enum a ⦄ → (range : a × a) → Gen a 
   chooseInteger : (range : Integer × Integer) → Gen Integer
   chooseInteger' : (range : Integer × Integer) → @0 ⦃ IsTrue (fst range <= snd range) ⦄ → Gen (∃ Integer (fst range <=_<= snd range))
+
+postulate
+  generate : Gen a → IO a
+  sample' : Gen a → IO (List a)
+  sample : ⦃ Show a ⦄ → Gen a → IO ⊤
+  genDouble : Gen (∃ Double (0.0 <=_<= 1.0))
+  suchThat : Gen a → (P : a → Bool) → Gen (∃ a (λ x → IsTrue (P x)))
+  suchThatMap : Gen a → (a → Maybe b) → Gen b
+  suchThatMaybe : Gen a → (P : a → Bool) → Gen (Maybe (∃ a (λ x → IsTrue (P x))))
+  oneof : ∃ (List (Gen a)) NonEmpty → Gen a
+  frequency :  ∃ (List ((∃ Int IsNonNegativeInt) × Gen a)) NonEmpty → Gen a -- law: probabilities cannot all be zero
+  elements : ∃ (List a) NonEmpty → Gen a
+  sublistOf : List a → Gen (List a)   -- law: all elements of result are in input, not implemented as it would require Ord
+  shuffle : List a → Gen (List a)     -- law: all elements of result are in input and vice versa, not implemented as it would require Ord
+  growingElements : ∃ (List a) NonEmpty → Gen a
+  listOf : Gen a → Gen (List a)
+  listOf1 : Gen a → Gen (List a)
+  vectorOf : Int → Gen a → Gen (List a)
+
