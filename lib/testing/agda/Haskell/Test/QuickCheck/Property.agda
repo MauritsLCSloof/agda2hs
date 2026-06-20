@@ -105,12 +105,12 @@ module _ {prop : Type} ⦃ _ : Testable prop ⦄ where
 
 
 postulate
-  _==>_ : @0 ⦃ Testable a ⦄ → Bool → a → Property
-  _===_ : @0 ⦃ Eq a ⦄ → @0 ⦃ Show a ⦄ → a → a → Property
-  _=/=_ : @0 ⦃ Eq a ⦄ → @0 ⦃ Show a ⦄ → a → a → Property
-  _∙&∙_ : @0 ⦃ Testable a ⦄ → @0 ⦃ Testable b ⦄ → a → b → Property
-  _∙&&∙_ : @0 ⦃ Testable a ⦄ → @0 ⦃ Testable b ⦄ → a → b → Property
-  _∙||∙_ : @0 ⦃ Testable a ⦄ → @0 ⦃ Testable b ⦄ → a → b → Property
+  _==>_ : ⦃ Testable a ⦄ → Bool → a → Property
+  _===_ : ⦃ Eq a ⦄ → ⦃ Show a ⦄ → a → a → Property
+  _=/=_ : ⦃ Eq a ⦄ → ⦃ Show a ⦄ → a → a → Property
+  _∙&∙_ : ⦃ Testable a ⦄ → ⦃ Testable b ⦄ → a → b → Property
+  _∙&&∙_ : ⦃ Testable a ⦄ → ⦃ Testable b ⦄ → a → b → Property
+  _∙||∙_ : ⦃ Testable a ⦄ → ⦃ Testable b ⦄ → a → b → Property
 
 infix 0 _==>_
 infix 4 _===_
