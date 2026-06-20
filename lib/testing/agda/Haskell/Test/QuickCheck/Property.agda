@@ -91,3 +91,31 @@ postulate
     iTestableMaybe    : ⦃ Testable a ⦄ → Testable (Maybe a)
     iTestableFun      : {prop : Type} → ⦃ Arbitrary a ⦄ → ⦃ Show a ⦄ → ⦃ Testable prop ⦄ → Testable (a → prop)
 
+module _ {prop : Type} ⦃ _ : Testable prop ⦄ where
+  postulate
+    ioProperty : IO prop → Property
+    idempotentIOProperty : IO prop → Property
+
+    forAll : ⦃ Show a ⦄ → Gen a → (a → prop) → Property
+    forAllShow : Gen a → (a → String) → (a → prop) → Property
+    forAllBlind : Gen a → (a → prop) → Property
+    forAllShrink : ⦃ Show a ⦄ → Gen a → (a → List a) → (a → prop) → Property
+    forAllShrinkShow : ⦃ Show a ⦄ → Gen a → (a → List a) → (a → String) → (a → prop) → Property
+    forAllShrinkBlind : ⦃ Show a ⦄ → Gen a → (a → List a) → (a → prop) → Property
+
+
+postulate
+  _==>_ : @0 ⦃ Testable a ⦄ → Bool → a → Property
+  _===_ : @0 ⦃ Eq a ⦄ → @0 ⦃ Show a ⦄ → a → a → Property
+  _=/=_ : @0 ⦃ Eq a ⦄ → @0 ⦃ Show a ⦄ → a → a → Property
+  _∙&∙_ : @0 ⦃ Testable a ⦄ → @0 ⦃ Testable b ⦄ → a → b → Property
+  _∙&&∙_ : @0 ⦃ Testable a ⦄ → @0 ⦃ Testable b ⦄ → a → b → Property
+  _∙||∙_ : @0 ⦃ Testable a ⦄ → @0 ⦃ Testable b ⦄ → a → b → Property
+
+infix 0 _==>_
+infix 4 _===_
+infix 4 _=/=_
+infix 1 _∙&∙_
+infix 1 _∙&&∙_
+infix 1 _∙||∙_
+
