@@ -52,3 +52,10 @@ resize n (MkGen g) = MkGen (λ r _ → g r n)
 
 scale : (∃ Int IsNonNegativeInt → ∃ Int IsNonNegativeInt) → Gen a → Gen a
 scale f g = sized (λ n → resize (f n) g)
+
+postulate
+  choose : ⦃ Random a ⦄ → a × a → Gen a
+  chooseAny : ⦃ Random a ⦄ → Gen a
+  chooseInt : (range : Int × Int) → Gen Int 
+  chooseEnum : ⦃ Enum a ⦄ → (range : a × a) → Gen a 
+  chooseInteger : (range : Integer × Integer) → Gen Integer
