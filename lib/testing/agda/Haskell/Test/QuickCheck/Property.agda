@@ -54,3 +54,40 @@ record Property : Type where
   field
     unProperty : Gen Prop
 
+
+record Testable (prop : Type) : Type₁ where
+  field
+    property : prop → Property
+    propertyForAllShrinkShow : Gen a → (a → (List a)) → (a → (List String)) → (a → prop) → Property
+
+
+{-# COMPILE AGDA2HS Testable existing-class #-}
+
+private postulate
+  propertyForAllShrinkShowImpl : {prop : Type} → Gen a → (a → (List a)) → (a → (List String)) → (a → prop) → Property
+
+record DefaultTestable (prop : Type) : Type₁ where
+  field 
+    property : prop → Property
+
+  propertyForAllShrinkShow : Gen a → (a → (List a)) → (a → (List String)) → (a → prop) → Property
+  propertyForAllShrinkShow g s sh ap = propertyForAllShrinkShowImpl g s sh ap
+
+open Testable ⦃ ... ⦄  public
+
+
+data Discard : Type where
+  MkDiscard : Discard    -- constructor has the same name as type in QuickCheck
+
+postulate
+  instance
+    iTestableDiscard  : Testable Discard
+    iTestable⊤        : Testable ⊤
+    iTestableBool     : Testable Bool
+    iTestableResult   : Testable Result
+    iTestableProp     : Testable Prop
+    iTestableProperty : Testable Property
+    iTestableGen      : ⦃ Testable a ⦄ → Testable (Gen a)
+    iTestableMaybe    : ⦃ Testable a ⦄ → Testable (Maybe a)
+    iTestableFun      : {prop : Type} → ⦃ Arbitrary a ⦄ → ⦃ Show a ⦄ → ⦃ Testable prop ⦄ → Testable (a → prop)
+

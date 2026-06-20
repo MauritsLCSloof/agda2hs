@@ -8,3 +8,6 @@ rewrites:
   - from: "Haskell.Test.QuickCheck.Gen.chooseInteger'"
     to: "chooseInteger"
     importing: "Test.QuickCheck.Gen"
+  - from: "Haskell.Test.QuickCheck.Property.Discard.MkDiscard"
+    to: "Discard"
+    importing: "Test.QuickCheck.Property"
