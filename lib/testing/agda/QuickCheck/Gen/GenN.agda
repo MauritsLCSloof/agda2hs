@@ -119,6 +119,12 @@ chooseIntN r = toGenN (chooseInt r)
 {-# COMPILE AGDA2HS chooseIntN #-}
 
 
+chooseIntN' : (range : Int × Int) → @0 ⦃ IsTrue (fst range <= snd range) ⦄ → GenN (∃ Int (fst range <=_<= snd range))
+chooseIntN' r = toGenN (chooseInt' r)
+
+{-# COMPILE AGDA2HS chooseIntN' #-}
+
+
 chooseNat : (range : Nat × Nat) → Gen Nat
 chooseNat (lo , hi) = unsafeIntToNat' <$> (chooseInt (value (fromIntegralNatToInt lo) , value (fromIntegralNatToInt hi)))
 
@@ -147,6 +153,12 @@ chooseIntegerN : (range : Integer × Integer) → GenN Integer
 chooseIntegerN r = toGenN (chooseInteger r)
 
 {-# COMPILE AGDA2HS chooseIntegerN #-}
+
+
+chooseIntegerN' : (range : Integer × Integer) → @0 ⦃ IsTrue (fst range <= snd range) ⦄ → GenN (∃ Integer (fst range <=_<= snd range))
+chooseIntegerN' r = toGenN (chooseInteger' r)
+
+{-# COMPILE AGDA2HS chooseIntegerN' #-}
 
 
 generateN : GenN a → IO a
