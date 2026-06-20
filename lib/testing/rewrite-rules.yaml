@@ -20,6 +20,12 @@ rewrites:
   - from: "Haskell.Test.QuickCheck.Property.Discard.MkDiscard"
     to: "Discard"
     importing: "Test.QuickCheck.Property"
+  - from: "QuickCheck.Gen.GenN.fromIntegralIntToNat"
+    to: "fromIntegral"
+  - from: "QuickCheck.Gen.GenN.fromIntegralNatToInt"
+    to: "fromIntegral"
+  - from: "QuickCheck.Gen.GenN.unsafeIntToNat'"
+    to: "fromIntegral"
   - from: "Haskell.Test.QuickCheck.State.Confidence.MkConfidence"
     to: "Confidence"
 
