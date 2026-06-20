@@ -1,0 +1,5 @@
+name: agda2hs-testing
+include: agda
+depend:
+  agda2hs-base
+flags: --erasure --no-import-sorts --no-projection-like --
