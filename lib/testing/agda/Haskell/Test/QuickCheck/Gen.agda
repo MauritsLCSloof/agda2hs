@@ -41,3 +41,14 @@ instance
   iMonadGen : Monad Gen
   iMonadGen = record { DefaultMonad iDefaultMonadGen }
 
+sized : (∃ Int IsNonNegativeInt → Gen a) → Gen a
+sized f = MkGen (λ r n → case f n of λ { (MkGen m) → m r n })
+
+getSize : Gen (∃ Int IsNonNegativeInt)
+getSize = sized pure
+
+resize : ∃ Int IsNonNegativeInt → Gen a → Gen a
+resize n (MkGen g) = MkGen (λ r _ → g r n)
+
+scale : (∃ Int IsNonNegativeInt → ∃ Int IsNonNegativeInt) → Gen a → Gen a
+scale f g = sized (λ n → resize (f n) g)
